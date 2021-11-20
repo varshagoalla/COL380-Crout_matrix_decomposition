@@ -12,27 +12,6 @@ void crout4(double const **A, double **L, double **U, int n, int p) {
     MPI_Init(NULL,NULL);
     MPI_Comm_rank(MPI_COMM_WORLD,&my_rank);
     MPI_Comm_size(MPI_COMM_WORLD,&comm_sz);
-    /*for (i=0; i<n; i++) 
-    {
-        local_L[i] = (double*) malloc(n* sizeof(double));
-        local_U[i] = (double*) malloc(n* sizeof(double));
-
-    }
-    for(int i=0;i<n;i++){
-        for(int j=0;j<n;j++){
-            local_L[i][j]=0;
-            if(i==j){
-                local_U[i][j]=1;
-               
-            }
-            else{
-                local_U[i][j]=0;
-            }
-        }
-    }*/
-    /*for(int i=0;i<n;i++){
-        U[i][i]=1;
-    }*/
     for(int i=0;i<n;i++){
         if(i%comm_sz==my_rank){
                 U[i][i]=1;
@@ -75,14 +54,6 @@ void crout4(double const **A, double **L, double **U, int n, int p) {
         }
         
     }
-    /*if(my_rank==0){
-        for(int i=0;i<n;i++){
-            for(int j=0;j<n;j++){
-                L[i][j]=L[i][j];
-                U[i][j]=U[i][j];
-            }
-        }
-    }*/
     MPI_Finalize();
 
 
@@ -143,7 +114,6 @@ int main(int argc,char* argv[]){
     else{
 
     }
-  //  printf("%lf",check(L,U,A,n));
     free(L);
     free(U);
     free(A);
